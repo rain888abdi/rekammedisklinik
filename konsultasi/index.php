@@ -229,7 +229,11 @@
             td:nth-of-type(2):before { content: "Tanggal Konsultasi:"; }
             td:nth-of-type(3):before { content: "Pasien:"; }
             td:nth-of-type(4):before { content: "Dokter:"; }
+<<<<<<< HEAD
             td:nth-of-type(5):before { content: "Keluhan:"; }
+=======
+            td:nth-of-type(5):before { content: "Deskripsi:"; }
+>>>>>>> 6bcfc52 (rekam medis klinik)
             td:nth-of-type(6):before { content: "Diagnosa:"; }
             td:nth-of-type(7):before { content: "Status:"; }
             td:nth-of-type(8):before { content: "Aksi:"; }
@@ -268,7 +272,10 @@
                     <th>Tanggal Konsultasi</th>
                     <th>Pasien</th>
                     <th>Dokter</th>
+<<<<<<< HEAD
                     <th>Keluhan</th>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <th>Diagnosa</th>
                     <th>Aksi</th>
                 </tr>
@@ -282,7 +289,10 @@ $result = $conn->query("
         K.tanggal_konsultasi,
         P.nama_pasien,
         D.nama_dokter,
+<<<<<<< HEAD
         K.keluhan,
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
         DI.nama_diagnosa
     FROM
         Konsultasi AS K
@@ -306,7 +316,10 @@ if(!$result) {
     <td><?= $row['tanggal_konsultasi']; ?></td>
     <td><?= htmlspecialchars($row['nama_pasien']); ?></td>
     <td><?= htmlspecialchars($row['nama_dokter']); ?></td>
+<<<<<<< HEAD
     <td><?= htmlspecialchars(substr($row['keluhan'], 0, 70)); ?><?= (strlen($row['keluhan']) > 70) ? '...' : ''; ?></td>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
     <td><?= htmlspecialchars($row['nama_diagnosa'] ?? '-'); ?></td>
     <td class="action-links">
         <a href="view.php?id=<?= $row['id_konsultasi']; ?>" class="view-link">Lihat Detail</a>

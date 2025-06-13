@@ -17,11 +17,18 @@ if ($id_obat === 0) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_obat = $_POST['nama_obat'];
     $satuan = $_POST['satuan'];
+<<<<<<< HEAD
     $harga_satuan = $_POST['harga_satuan'];
 
     // Menggunakan prepared statement untuk keamanan
     $stmt = $conn->prepare("UPDATE Obat SET nama_obat=?, satuan=?, harga_satuan=? WHERE id_obat=?");
     $stmt->bind_param("ssdi", $nama_obat, $satuan, $harga_satuan, $id_obat); // 'd' untuk double/float harga_satuan
+=======
+
+    // Menggunakan prepared statement untuk keamanan
+    $stmt = $conn->prepare("UPDATE Obat SET nama_obat=?, satuan=? WHERE id_obat=?");
+    $stmt->bind_param("ssi", $nama_obat, $satuan, $id_obat); // 'd' untuk double/float harga_satuan
+>>>>>>> 6bcfc52 (rekam medis klinik)
 
     if ($stmt->execute()) {
         header("Location: index.php");
@@ -218,12 +225,21 @@ if (!$obat) {
                 <input type="text" name="nama_obat" id="nama_obat" value="<?= htmlspecialchars($obat['nama_obat']); ?>" required>
             </div>
             <div>
+<<<<<<< HEAD
                 <label for="satuan">Satuan:</label>
                 <input type="text" name="satuan" id="satuan" value="<?= htmlspecialchars($obat['satuan']); ?>">
             </div>
             <div>
                 <label for="harga_satuan">Harga Satuan:</label>
                 <input type="number" step="0.01" name="harga_satuan" id="harga_satuan" value="<?= htmlspecialchars($obat['harga_satuan']); ?>" required>
+=======
+                <label for="kategori">Kategori:</label>
+                <select name="kategori" required>
+                    <option value="tablet" <?= ($obat['kategori'] == 'tablet') ? 'selected' : '' ?>>Tablet</option>
+                    <option value="kapsul" <?= ($obat['kategori'] == 'kapsul') ? 'selected' : '' ?>>Kapsul</option>
+                    <option value="sirup" <?= ($obat['kategori'] == 'sirup') ? 'selected' : '' ?>>Sirup</option>
+                </select>
+>>>>>>> 6bcfc52 (rekam medis klinik)
             </div>
             <div class="form-actions">
                 <button type="submit">Update Obat</button>

@@ -3,36 +3,88 @@
 // Baris ini harus menjadi baris pertama dan tidak ada yang lain sebelumnya.
 include '../db.php';
 
+<<<<<<< HEAD
+=======
+date_default_timezone_set('Asia/Jakarta');
+
+$hari_enum = [
+    'Sunday' => 'Minggu',
+    'Monday' => 'Senin',
+    'Tuesday' => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday' => 'Kamis',
+    'Friday' => 'Jumat',
+    'Saturday' => 'Sabtu'
+];
+
+$hari_ini = $hari_enum[date('l')]; // misal: 'Senin'
+$jam_ini = date('H:i:s');
+
+
+>>>>>>> 6bcfc52 (rekam medis klinik)
 $error_message = ''; // Inisialisasi pesan error
 $success_message = ''; // Inisialisasi pesan sukses
 
 // Fetch all necessary data for dropdowns beforehand
 $all_pasien = $conn->query("SELECT id_pasien, nama_pasien FROM Pasien ORDER BY nama_pasien ASC")->fetch_all(MYSQLI_ASSOC);
+<<<<<<< HEAD
 $all_dokters = $conn->query("SELECT id_dokter, nama_dokter FROM Dokter ORDER BY nama_dokter ASC")->fetch_all(MYSQLI_ASSOC);
 $all_diagnosas = $conn->query("SELECT id_diagnosa, nama_diagnosa FROM Diagnosa ORDER BY nama_diagnosa ASC")->fetch_all(MYSQLI_ASSOC);
 $all_obats = $conn->query("SELECT id_obat, nama_obat, satuan, harga_satuan FROM Obat ORDER BY nama_obat ASC")->fetch_all(MYSQLI_ASSOC);
+=======
+
+$stmt_dokter = $conn->prepare("
+    SELECT d.id_dokter, d.nama_dokter
+    FROM Dokter d
+    JOIN Jadwal j ON d.id_dokter = j.id_dokter
+    WHERE j.hari = ? AND ? BETWEEN j.jam_mulai AND j.jam_selesai
+    ORDER BY d.nama_dokter ASC
+");
+$stmt_dokter->bind_param("ss", $hari_ini, $jam_ini);
+$stmt_dokter->execute();
+$all_dokters = $stmt_dokter->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt_dokter->close();
+
+$all_diagnosas = $conn->query("SELECT id_diagnosa, nama_diagnosa FROM Diagnosa ORDER BY nama_diagnosa ASC")->fetch_all(MYSQLI_ASSOC);
+$all_obats = $conn->query("SELECT id_obat, nama_obat, kategori FROM Obat ORDER BY nama_obat ASC")->fetch_all(MYSQLI_ASSOC);
+>>>>>>> 6bcfc52 (rekam medis klinik)
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_pasien = $_POST['id_pasien'];
     $id_dokter = $_POST['id_dokter'];
+<<<<<<< HEAD
     $keluhan = $_POST['keluhan'];
+=======
+    $Deskripsi = $_POST['Deskripsi'];
+>>>>>>> 6bcfc52 (rekam medis klinik)
     $id_diagnosa = $_POST['id_diagnosa'] ?: null; // Handle if no diagnosis selected
     $catatan_dokter = $_POST['catatan_dokter'];
     $selected_obats = isset($_POST['obat']) ? $_POST['obat'] : [];
 
     // Validasi dasar
+<<<<<<< HEAD
     if (empty($id_pasien) || empty($id_dokter) || empty($keluhan)) {
+=======
+    if (empty($id_pasien) || empty($id_dokter) || empty($Deskripsi)) {
+>>>>>>> 6bcfc52 (rekam medis klinik)
         $error_message = "Harap lengkapi semua bidang yang wajib diisi (Pasien, Dokter, Keluhan.";
     } else {
         $conn->begin_transaction(); // Mulai transaksi
 
         try {
             // Insert data konsultasi
+<<<<<<< HEAD
             $stmt_konsultasi = $conn->prepare("INSERT INTO Konsultasi (id_pasien, id_dokter, keluhan, id_diagnosa, catatan_dokter) VALUES (?, ?, ?, ?, ?)");
             // 's' untuk string, 'i' untuk integer. Sesuaikan tipe data untuk bind_param
             // Jika id_diagnosa bisa NULL, pastikan tipe datanya sesuai (misal: 'i' jika int atau 's' jika string, dan tangani null dengan baik)
             $stmt_konsultasi->bind_param("iisis", $id_pasien, $id_dokter, $keluhan, $id_diagnosa, $catatan_dokter);
+=======
+            $stmt_konsultasi = $conn->prepare("INSERT INTO Konsultasi (id_pasien, id_dokter, Deskripsi, id_diagnosa, catatan_dokter) VALUES (?, ?, ?, ?, ?)");
+            // 's' untuk string, 'i' untuk integer. Sesuaikan tipe data untuk bind_param
+            // Jika id_diagnosa bisa NULL, pastikan tipe datanya sesuai (misal: 'i' jika int atau 's' jika string, dan tangani null dengan baik)
+            $stmt_konsultasi->bind_param("iisis", $id_pasien, $id_dokter, $Deskripsi, $id_diagnosa, $catatan_dokter);
+>>>>>>> 6bcfc52 (rekam medis klinik)
             $stmt_konsultasi->execute();
             $id_konsultasi = $stmt_konsultasi->insert_id;
             $stmt_konsultasi->close();
@@ -343,6 +395,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 margin-right: 0;
             }
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bcfc52 (rekam medis klinik)
     </style>
 </head>
 <body>
@@ -376,11 +432,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </div>
             <div>
+<<<<<<< HEAD
                 <label for="keluhan">Keluhan:</label>
                 <textarea name="keluhan" id="keluhan" rows="3" required></textarea>
             </div>
             <div>
                 <label for="id_diagnosa">Diagnosa:</label>
+=======
+            <label for="id_diagnosa">Diagnosa:</label>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 <select name="id_diagnosa" id="id_diagnosa">
                     <option value="">Belum Didiagnosa</option>
                     <?php foreach ($all_diagnosas as $diagnosa): ?>
@@ -388,6 +448,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php endforeach; ?>
                 </select>
             </div>
+<<<<<<< HEAD
+=======
+
+            <div>
+                <label for="Deskripsi">Deskripsi Diagnosa:</label>
+                <textarea name="Deskripsi" id="Deskripsi" rows="3" required></textarea>
+            </div>
+>>>>>>> 6bcfc52 (rekam medis klinik)
             <div>
                 <label for="catatan_dokter">Catatan Dokter:</label>
                 <textarea name="catatan_dokter" id="catatan_dokter" rows="5"></textarea>
@@ -399,7 +467,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <select name="obat[0][id_obat]">
                         <option value="">Pilih Obat</option>
                         <?php foreach ($all_obats as $obat): ?>
+<<<<<<< HEAD
                             <option value="<?= $obat['id_obat']; ?>" data-satuan="<?= htmlspecialchars($obat['satuan']); ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['satuan']); ?>)</option>
+=======
+                            <option value="<?= $obat['id_obat']; ?>" data-kategori="<?= htmlspecialchars($obat['kategori']); ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['kategori']); ?>)</option>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                         <?php endforeach; ?>
                     </select>
                     Jumlah: <input type="number" name="obat[0][jumlah]" value="0" min="0">
@@ -420,7 +492,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         let obatCounter = 1; // Start from 1 as 0 is used for the initial item
         const allObatsOptions = `
             <?php foreach ($all_obats as $obat): ?>
+<<<<<<< HEAD
                 <option value="<?= $obat['id_obat']; ?>" data-satuan="<?= htmlspecialchars($obat['satuan']); ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['satuan']); ?>)</option>
+=======
+                <option value="<?= $obat['id_obat']; ?>" data-kategori="<?= htmlspecialchars($obat['kategori']); ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['kategori']); ?>)</option>
+>>>>>>> 6bcfc52 (rekam medis klinik)
             <?php endforeach; ?>
         `;
 
@@ -451,5 +527,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     </script>
+<<<<<<< HEAD
+=======
+</script>
+
+>>>>>>> 6bcfc52 (rekam medis klinik)
 </body>
 </html>

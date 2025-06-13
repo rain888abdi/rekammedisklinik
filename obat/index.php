@@ -218,7 +218,10 @@
             td:nth-of-type(1):before { content: "ID Obat:"; }
             td:nth-of-type(2):before { content: "Nama Obat:"; }
             td:nth-of-type(3):before { content: "Satuan:"; }
+<<<<<<< HEAD
             td:nth-of-type(4):before { content: "Harga Satuan:"; }
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
             td:nth-of-type(5):before { content: "Aksi:"; }
 
             td:last-child {
@@ -241,8 +244,12 @@
                 <tr>
                     <th>ID Obat</th>
                     <th>Nama Obat</th>
+<<<<<<< HEAD
                     <th>Satuan</th>
                     <th>Harga Satuan</th>
+=======
+                    <th>Kategori</th>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -255,8 +262,12 @@
                 <tr>
                     <td><?= $row['id_obat']; ?></td>
                     <td><?= htmlspecialchars($row['nama_obat']); ?></td>
+<<<<<<< HEAD
                     <td><?= htmlspecialchars($row['satuan']); ?></td>
                     <td>Rp <?= number_format($row['harga_satuan'], 2, ',', '.'); ?></td>
+=======
+                    <td><?= htmlspecialchars($row['kategori']); ?></td>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <td class="action-links">
                         <a href="edit.php?id=<?= $row['id_obat']; ?>">Edit</a>
                         <a href="delete.php?id=<?= $row['id_obat']; ?>" onclick="return confirm('Yakin ingin menghapus obat ini? Data konsultasi terkait akan terpengaruh.')">Hapus</a>

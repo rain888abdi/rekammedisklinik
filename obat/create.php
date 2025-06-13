@@ -9,12 +9,14 @@ $error_message = ''; // Inisialisasi pesan error
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Mengambil data dari form
     $nama_obat = $_POST['nama_obat'];
-    $satuan = $_POST['satuan'];
-    $harga_satuan = $_POST['harga_satuan'];
+HEAD
+
+    $kategori = $_POST['kategori'];
 
     // Menggunakan prepared statement untuk keamanan
-    $stmt = $conn->prepare("INSERT INTO Obat (nama_obat, satuan, harga_satuan) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssd", $nama_obat, $satuan, $harga_satuan); // 'd' untuk double/float harga_satuan
+    $stmt = $conn->prepare("INSERT INTO Obat (nama_obat, kategori) VALUES (?, ?)");
+    $stmt->bind_param("ss", $nama_obat, $kategori); // 'd' untuk double/float harga_satuan
+ 6bcfc52 (rekam medis klinik)
 
     if ($stmt->execute()) {
         header("Location: index.php"); // Redirect ke index.php di folder yang sama
@@ -197,12 +199,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="text" name="nama_obat" id="nama_obat" required>
             </div>
             <div>
+<<<<<<< HEAD
                 <label for="satuan">Satuan:</label>
                 <input type="text" name="satuan" id="satuan">
             </div>
             <div>
                 <label for="harga_satuan">Harga Satuan:</label>
                 <input type="number" step="0.01" name="harga_satuan" id="harga_satuan" required>
+=======
+                <label for="kategori">Kategori:</label>
+                <select name="kategori" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="tablet">Tablet</option>
+                    <option value="kapsul">Kapsul</option>
+                    <option value="sirup">Sirup</option>
+                </select>
+>>>>>>> 6bcfc52 (rekam medis klinik)
             </div>
             <div class="form-actions">
                 <button type="submit">Simpan Obat</button>

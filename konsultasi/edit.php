@@ -33,7 +33,11 @@ if (!$konsultasi) {
 $all_pasien = $conn->query("SELECT id_pasien, nama_pasien FROM Pasien ORDER BY nama_pasien ASC")->fetch_all(MYSQLI_ASSOC);
 $all_dokters = $conn->query("SELECT id_dokter, nama_dokter FROM Dokter ORDER BY nama_dokter ASC")->fetch_all(MYSQLI_ASSOC);
 $all_diagnosas = $conn->query("SELECT id_diagnosa, nama_diagnosa FROM Diagnosa ORDER BY nama_diagnosa ASC")->fetch_all(MYSQLI_ASSOC);
+<<<<<<< HEAD
 $all_obats = $conn->query("SELECT id_obat, nama_obat, satuan, harga_satuan FROM Obat ORDER BY nama_obat ASC")->fetch_all(MYSQLI_ASSOC);
+=======
+$all_obats = $conn->query("SELECT id_obat, nama_obat, kategori FROM Obat ORDER BY nama_obat ASC")->fetch_all(MYSQLI_ASSOC);
+>>>>>>> 6bcfc52 (rekam medis klinik)
 
 // Ambil obat yang sudah diberikan untuk konsultasi ini
 $stmt_current_obats = $conn->prepare("SELECT id_obat, jumlah, instruksi_pemakaian FROM DetailKonsultasiObat WHERE id_konsultasi = ?");
@@ -49,7 +53,11 @@ $stmt_current_obats->close();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_pasien = $_POST['id_pasien'];
     $id_dokter = $_POST['id_dokter'];
+<<<<<<< HEAD
     $keluhan = $_POST['keluhan'];
+=======
+    $Deskripsi = $_POST['Deskripsi'];
+>>>>>>> 6bcfc52 (rekam medis klinik)
     
     // Perbaikan utama: Mengatur id_diagnosa menjadi NULL jika kosong.
     // Pastikan kolom id_diagnosa di database Anda adalah INT dan NULLABLE.
@@ -68,14 +76,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->begin_transaction();
 
     try {
+<<<<<<< HEAD
         $stmt_update_konsultasi = $conn->prepare("UPDATE Konsultasi SET id_pasien=?, id_dokter=?, keluhan=?, id_diagnosa=?, catatan_dokter=? WHERE id_konsultasi=?");
+=======
+        $stmt_update_konsultasi = $conn->prepare("UPDATE Konsultasi SET id_pasien=?, id_dokter=?, Deskripsi=?, id_diagnosa=?, catatan_dokter=? WHERE id_konsultasi=?");
+>>>>>>> 6bcfc52 (rekam medis klinik)
         if ($stmt_update_konsultasi === false) {
             throw new mysqli_sql_exception("Failed to prepare update statement: " . $conn->error);
         }
 
         // Penyederhanaan bind_param: MySQLi dapat menangani NULL dengan tipe 'i'
         // asalkan kolom di DB adalah INT NULLABLE.
+<<<<<<< HEAD
         $stmt_update_konsultasi->bind_param("iisisi", $id_pasien, $id_dokter, $keluhan, $id_diagnosa, $catatan_dokter, $id_konsultasi);
+=======
+        $stmt_update_konsultasi->bind_param("iisisi", $id_pasien, $id_dokter, $Deskripsi, $id_diagnosa, $catatan_dokter, $id_konsultasi);
+>>>>>>> 6bcfc52 (rekam medis klinik)
         
         $stmt_update_konsultasi->execute();
         
@@ -370,10 +386,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </div>
             <div class="form-group">
+<<<<<<< HEAD
                 <label for="keluhan">Keluhan:</label>
                 <textarea name="keluhan" id="keluhan" rows="3"><?= htmlspecialchars($konsultasi['keluhan']); ?></textarea>
             </div>
             <div class="form-group">
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 <label for="id_diagnosa">Diagnosa:</label>
                 <select name="id_diagnosa" id="id_diagnosa">
                     <option value="">Belum Didiagnosa</option>
@@ -385,6 +404,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </div>
             <div class="form-group">
+<<<<<<< HEAD
+=======
+                <label for="Deskripsi">Deskripsi Diagnosa:</label>
+                <textarea name="Deskripsi" id="Deskripsi" rows="3"><?= htmlspecialchars($konsultasi['Deskripsi']); ?></textarea>
+            </div>
+            <div class="form-group">
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 <label for="catatan_dokter">Catatan Dokter:</label>
                 <textarea name="catatan_dokter" id="catatan_dokter" rows="5"><?= htmlspecialchars($konsultasi['catatan_dokter']); ?></textarea>
             </div>
@@ -400,7 +426,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="">Pilih Obat</option>
                                     <?php foreach ($all_obats as $obat): ?>
                                         <option value="<?= $obat['id_obat']; ?>" <?= ($obat['id_obat'] == $obat_item['id_obat']) ? 'selected' : ''; ?>>
+<<<<<<< HEAD
                                             <?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['satuan']); ?>)
+=======
+                                            <?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['kategori']); ?>)
+>>>>>>> 6bcfc52 (rekam medis klinik)
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -433,7 +463,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <select name="obat[${obatCounter}][id_obat]">
                     <option value="">Pilih Obat</option>
                     <?php foreach ($all_obats as $obat): ?>
+<<<<<<< HEAD
                         <option value="<?= $obat['id_obat']; ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['satuan']); ?>)</option>
+=======
+                        <option value="<?= $obat['id_obat']; ?>"><?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['kategori']); ?>)</option>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <?php endforeach; ?>
                 </select>
                 Jumlah: <input type="number" name="obat[${obatCounter}][jumlah]" value="0" min="0">

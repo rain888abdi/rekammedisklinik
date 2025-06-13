@@ -38,7 +38,11 @@
                 P.telepon AS telp_pasien,
                 D.nama_dokter,
                 D.spesialisasi AS spesialisasi_dokter,
+<<<<<<< HEAD
                 K.keluhan,
+=======
+                K.Deskripsi,
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 DI.nama_diagnosa,
                 DI.deskripsi_diagnosa,
                 K.catatan_dokter
@@ -72,7 +76,10 @@ $stmt_riwayat = $conn->prepare("
         K.tanggal_konsultasi,
         D.nama_dokter,
         DI.nama_diagnosa,
+<<<<<<< HEAD
         K.keluhan,
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
         K.catatan_dokter
     FROM Konsultasi K
     JOIN Dokter D ON K.id_dokter = D.id_dokter
@@ -94,7 +101,11 @@ $stmt_riwayat->close();
         $stmt_obat = $conn->prepare("
             SELECT 
                 O.nama_obat,
+<<<<<<< HEAD
                 O.satuan,
+=======
+                O.kategori,
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 DCO.jumlah,
                 DCO.instruksi_pemakaian
             FROM 
@@ -154,6 +165,7 @@ $stmt_riwayat->close();
         
         <h3>Detail Konsultasi</h3>
         <div class="detail-group">
+<<<<<<< HEAD
             <label>Keluhan:</label>
             <span><?= nl2br(htmlspecialchars($konsultasi['keluhan'])); ?></span>
         </div>
@@ -167,6 +179,15 @@ $stmt_riwayat->close();
             <span><?= nl2br(htmlspecialchars($konsultasi['deskripsi_diagnosa'])); ?></span>
         </div>
         <?php endif; ?>
+=======
+            <label>Diagnosa:</label>
+            <span><?= htmlspecialchars($konsultasi['nama_diagnosa'] ?? '-'); ?></span>
+        </div>
+        <div class="detail-group">
+            <label>Deskripsi Diagnosa:</label>
+            <span><?= nl2br(htmlspecialchars($konsultasi['Deskripsi'])); ?></span>
+        </div>
+>>>>>>> 6bcfc52 (rekam medis klinik)
         <div class="detail-group">
             <label>Catatan Dokter:</label>
             <span><?= nl2br(htmlspecialchars($konsultasi['catatan_dokter'])); ?></span>
@@ -176,7 +197,11 @@ $stmt_riwayat->close();
             <ul>
                 <?php foreach ($obats_diberikan as $obat): ?>
                     <li>
+<<<<<<< HEAD
                         <?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['jumlah']); ?> <?= htmlspecialchars($obat['satuan']); ?>) - Instruksi: <?= htmlspecialchars($obat['instruksi_pemakaian']); ?>
+=======
+                        <?= htmlspecialchars($obat['nama_obat']); ?> (<?= htmlspecialchars($obat['jumlah']); ?> <?= htmlspecialchars($obat['kategori']); ?>) - Instruksi: <?= htmlspecialchars($obat['instruksi_pemakaian']); ?>
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -192,7 +217,10 @@ $stmt_riwayat->close();
                 <th>Tanggal</th>
                 <th>Dokter</th>
                 <th>Diagnosa</th>
+<<<<<<< HEAD
                 <th>Keluhan</th>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
                 <th>Catatan</th>
             </tr>
         </thead>
@@ -202,7 +230,10 @@ $stmt_riwayat->close();
                     <td><?= date('d-m-Y H:i', strtotime($riwayat['tanggal_konsultasi'])) ?></td>
                     <td><?= htmlspecialchars($riwayat['nama_dokter']) ?></td>
                     <td><?= htmlspecialchars($riwayat['nama_diagnosa'] ?? '-') ?></td>
+<<<<<<< HEAD
                     <td><?= htmlspecialchars($riwayat['keluhan']) ?></td>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <td><?= htmlspecialchars($riwayat['catatan_dokter']) ?></td>
                 </tr>
             <?php endwhile; ?>

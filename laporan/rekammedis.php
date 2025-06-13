@@ -8,7 +8,10 @@ $query = "
         P.nama_pasien,
         D.nama_dokter,
         DI.nama_diagnosa,
+<<<<<<< HEAD
         K.keluhan,
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
         K.catatan_dokter
     FROM Konsultasi K
     JOIN Pasien P ON K.id_pasien = P.id_pasien
@@ -56,7 +59,10 @@ $result = $conn->query($query);
             <th>Pasien</th>
             <th>Dokter</th>
             <th>Diagnosa</th>
+<<<<<<< HEAD
             <th>Keluhan</th>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
             <th>Catatan</th>
             <th>Tanggal Konsultasi</th>
         </tr>
@@ -68,7 +74,10 @@ $result = $conn->query($query);
                     <td><?= htmlspecialchars($row['nama_pasien']) ?></td>
                     <td><?= htmlspecialchars($row['nama_dokter']) ?></td>
                     <td><?= htmlspecialchars($row['nama_diagnosa'] ?? '-') ?></td>
+<<<<<<< HEAD
                     <td><?= htmlspecialchars($row['keluhan']) ?></td>
+=======
+>>>>>>> 6bcfc52 (rekam medis klinik)
                     <td><?= htmlspecialchars($row['catatan_dokter']) ?></td>
                     <td><?= date('d-m-Y H:i', strtotime($row['tanggal_konsultasi'])) ?></td>
                 </tr>
